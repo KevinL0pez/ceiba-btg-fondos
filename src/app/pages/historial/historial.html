@@ -1,0 +1,64 @@
+<section class="historial-page">
+
+  @if (transacciones$ | async; as transacciones) {
+    <header class="page-header">
+      <h1>Historial de transacciones ({{ transacciones.length }})</h1>
+      <p>Monitorea tus movimientos y su estado en tiempo real.</p>
+    </header>
+
+    @if (transacciones.length > 0) {
+      <div class="table-shell">
+        <mat-card class="table-card" appearance="outlined">
+          <div class="table-wrapper">
+            <table class="tx-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Fondo</th>
+                  <th>Tipo</th>
+                  <th>Estado</th>
+                  <th>Canal</th>
+                  <th class="amount-col">Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (tx of transacciones | slice:(pageIndex * pageSize):((pageIndex + 1) * pageSize); track tx.id) {
+                  <tr>
+                    <td>{{ tx.fecha | date: 'short' }}</td>
+                    <td class="fund-col" [attr.title]="formatNombre(tx.nombreFondo)">
+                      <strong>{{ formatNombre(tx.nombreFondo) }}</strong>
+                      <small>{{ tx.detalle }}</small>
+                    </td>
+                    <td>
+                      <span class="badge" [class.badge--error]="tx.estado === 'RECHAZADA'">{{ tx.tipo }}</span>
+                    </td>
+                    <td>
+                      <span class="status" [class.status--error]="tx.estado === 'RECHAZADA'">{{ tx.estado }}</span>
+                    </td>
+                    <td>{{ tx.metodoNotificacion | uppercase }}</td>
+                    <td class="amount-col">{{ tx.monto | currency: 'COP $' : 'symbol' : '1.0-0' }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <mat-paginator
+            [length]="transacciones.length"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            [pageIndex]="pageIndex"
+            (page)="onPageChange($event)"
+            showFirstLastButtons>
+          </mat-paginator>
+        </mat-card>
+      </div>
+    } @else {
+      <mat-card class="empty-card" appearance="outlined">
+        <mat-card-title>No hay transacciones registradas</mat-card-title>
+        <mat-card-content>
+          <p>Cuando suscribas o canceles un fondo, el historial aparecera aqui.</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  }
+</section>

@@ -1,0 +1,54 @@
+<header class="header-shell">
+  <section class="header-hero">
+
+    <div class="hero-main">
+      <section class="brand-block">
+        <div class="brand-copy">
+          <p class="brand-kicker">BTG Fondos</p>
+          <h1 class="brand-title">Manejo inteligente de fondos</h1>
+          <p class="brand-subtitle">
+            <span matTooltip="Fondo de Pensiones Voluntarias">FPV</span>
+            /
+            <span matTooltip="Fondo de Inversion Colectiva">FIC</span>
+            con seguimiento en tiempo real
+          </p>
+        </div>
+      </section>
+
+      <div class="theme-toggle-row">
+        <button
+          mat-icon-button
+          type="button"
+          class="theme-toggle"
+          [matTooltip]="themeTooltip"
+          (click)="toggleTheme()"
+          [attr.aria-label]="themeTooltip">
+          <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+      </div>
+
+      <section class="account-card">
+        <div class="account-head">
+          <p class="account-label">Cliente</p>
+          <p class="account-name">{{ usuario$ | async }}</p>
+        </div>
+        <div class="saldo-pill">
+          <small>Saldo disponible</small>
+          <strong>{{ saldo$ | async | currency: 'COP $' : 'symbol' : '1.0-0' }}</strong>
+        </div>
+      </section>
+    </div>
+
+    <nav class="header-nav" aria-label="Contexto de la aplicacion">
+        @for (item of navItems; track $index) {
+            <a
+              class="nav-item"
+              [routerLink]="item.route"
+              routerLinkActive="nav-item--active"
+              [routerLinkActiveOptions]="{ exact: true }">
+              {{ item.label }}
+            </a>
+        }
+    </nav>
+  </section>
+</header>

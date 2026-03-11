@@ -1,0 +1,177 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$blue-palette,
+      tertiary: mat.$green-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+:root {
+  --bg-main: #070b14;
+  --bg-soft: #0f1728;
+  --text-main: #e7eefc;
+  --text-muted: #9fb0c9;
+  --line: rgba(99, 164, 255, 0.24);
+  --accent: #4f9bff;
+  --accent-2: #22d3ee;
+  --card-bg: rgba(14, 24, 42, 0.72);
+  --shadow: 0 20px 45px rgba(2, 8, 22, 0.45);
+
+  --btg-primary: #1e3a8a;
+  --btg-secondary: #2563eb;
+  --btg-accent: #10b981;
+  --btg-background: var(--bg-main);
+  --btg-text: var(--text-main);
+  --btg-card: var(--card-bg);
+}
+
+html[data-theme='light'] {
+  --bg-main: #f3f7ff;
+  --bg-soft: #eaf2ff;
+  --text-main: #0f172a;
+  --text-muted: #52637d;
+  --line: rgba(37, 99, 235, 0.22);
+  --accent: #2563eb;
+  --accent-2: #06b6d4;
+  --card-bg: rgba(255, 255, 255, 0.86);
+  --shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+}
+
+html[data-theme='dark'] {
+  --bg-main: #070b14;
+  --bg-soft: #0f1728;
+  --text-main: #e7eefc;
+  --text-muted: #9fb0c9;
+  --line: rgba(99, 164, 255, 0.24);
+  --accent: #4f9bff;
+  --accent-2: #22d3ee;
+  --card-bg: rgba(14, 24, 42, 0.72);
+  --shadow: 0 20px 45px rgba(2, 8, 22, 0.45);
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background:
+    radial-gradient(circle at 20% 0%, rgba(79, 155, 255, 0.22), transparent 40%),
+    radial-gradient(circle at 80% 5%, rgba(34, 211, 238, 0.12), transparent 35%),
+    var(--bg-main);
+  color: var(--text-main);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+html[data-theme='dark'] body {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] body {
+  color-scheme: light;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  --mdc-filled-button-container-color: var(--btg-secondary);
+  --mdc-filled-button-label-text-color: #ffffff;
+}
+
+.mat-mdc-outlined-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-outlined-button-label-text-color: var(--btg-secondary);
+}
+
+.swal-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.swal-message {
+  font-size: 16px;
+  color: #444;
+}
+
+.swal-popup-light {
+  border-radius: 12px;
+  padding: 2rem;
+  color: var(--text-main);
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow);
+}
+
+.swal-content {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.swal-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0 6px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.swal-confirm {
+  background-color: var(--accent);
+  color: white;
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--accent) 86%, #0a4aa6);
+  }
+}
+
+.swal-cancel {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: var(--text-main);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.26);
+  }
+}
+
+/* Opcional: color suave de borde según tipo */
+.swal-success {
+  border-top: 6px solid #66bb6a;
+}
+
+.swal-error {
+  border-top: 6px solid #ef5350;
+}
+
+.swal-warning {
+  border-top: 6px solid #fbc02d;
+}
+
+.swal-info {
+  border-top: 6px solid #29b6f6;
+}
+
+.swal-question {
+  border-top: 6px solid #ab47bc;
+}

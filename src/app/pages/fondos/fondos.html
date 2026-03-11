@@ -1,0 +1,88 @@
+<section class="fondos-page">
+
+  @if (fondosState$ | async; as state) {
+    <ng-container>
+  
+      <header class="page-header">
+        <h1>Fondos disponibles ({{ state.fondos.length }})</h1>
+        <p>Explora las opciones de inversion y elige la que mejor se ajuste a tu perfil.</p>
+      </header>
+  
+      @if (state.loading) {
+        <mat-card class="empty-card" appearance="outlined">
+          <mat-card-title>Cargando fondos...</mat-card-title>
+          <mat-card-content>
+            <p>Estamos consultando la informacion de fondos.</p>
+          </mat-card-content>
+        </mat-card>
+      }
+  
+      @if (state.error) {
+        <mat-card class="empty-card error-card" appearance="outlined">
+          <mat-card-title>Error de conexion</mat-card-title>
+          <mat-card-content>
+            <p>{{ state.error }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+  
+      <div class="fondos-grid">
+        @if (!state.loading && !state.error && state.fondos.length > 0) {
+          @for (fondo of state.fondos; track fondo.id) {
+            <mat-card class="fondo-card" appearance="outlined">
+              <mat-card-header>
+                <mat-card-title [attr.title]="formatNombre(fondo.nombre)" class="fondo-nombre">
+                  {{ formatNombre(fondo.nombre) }}
+                </mat-card-title>
+                <mat-card-subtitle class="categoria-chip" [matTooltip]="descripcionCategoria(fondo.categoria)">
+                  {{ fondo.categoria }}
+                </mat-card-subtitle>
+              </mat-card-header>
+    
+              <mat-card-content>
+                <p class="label">Monto minimo de apertura</p>
+                <p class="monto">{{ fondo.montoMinimo | currency: 'COP $' : 'symbol' : '1.0-0' }}</p>
+    
+                <div class="notification-selector">
+                  <p class="notification-label">Notificacion de suscripcion</p>
+                  <div class="notification-actions">
+                    <button
+                      mat-button
+                      type="button"
+                      [class.method-active]="metodoSeleccionado(fondo.id) === 'email'"
+                      (click)="seleccionarMetodo(fondo.id, 'email')">
+                      Email
+                    </button>
+                    <button
+                      mat-button
+                      type="button"
+                      [class.method-active]="metodoSeleccionado(fondo.id) === 'sms'"
+                      (click)="seleccionarMetodo(fondo.id, 'sms')">
+                      SMS
+                    </button>
+                  </div>
+                </div>
+              </mat-card-content>
+    
+              <mat-card-actions class="card-actions">
+                <button
+                  matButton="tonal"
+                  type="button"
+                  (click)="suscribir(fondo)">
+                  Suscribirse
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        } @else {
+          <mat-card class="empty-card" appearance="outlined">
+            <mat-card-title>No hay fondos disponibles</mat-card-title>
+            <mat-card-content>
+              <p>Puede que ya estes suscrito a todos los fondos o que el servicio no tenga datos.</p>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+    </ng-container>
+  }
+</section>
