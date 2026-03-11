@@ -1,65 +1,70 @@
-# BtgFondos
+# BTG Fondos
 
-## Levantar servidor `json-server`
+Aplicación Angular para gestión de fondos (FPV/FIC) con persistencia en `json-server`, sincronización entre pestañas, tema claro/oscuro y pruebas unitarias con Vitest.
+
+## Requisitos
+
+- Node.js 20+ (recomendado LTS)
+- npm 10+
+
+## Instalación
+
+```bash
+npm install
+```
+
+## Ejecución local (paso a paso)
+
+Esta app necesita **dos procesos**: backend mock y frontend Angular.
+
+### 1) Levantar API mock (`json-server`)
 
 ```bash
 npx json-server mock/db.json --port 8001
 ```
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+### 2) Levantar aplicación Angular
 
-## Development server
-
-To start a local development server, run:
+En otra terminal:
 
 ```bash
-ng serve
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 3) Abrir en navegador
 
-## Code scaffolding
+```text
+http://localhost:4200/
+```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Scripts disponibles
+
+- `npm start`: levanta la app Angular en desarrollo.
+- `npm run build`: genera el build en `dist/`.
+- `npm test`: ejecuta pruebas unitarias en modo watch.
+- `npm test -- --watch=false`: ejecuta pruebas unitarias una sola vez (ideal para CI).
+
+## Pruebas unitarias
+
+El proyecto usa **Vitest** como runner de pruebas.
 
 ```bash
-ng generate component component-name
+npm test -- --watch=false
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Notas de desarrollo
 
-```bash
-ng generate --help
-```
+- La base de datos mock vive en `mock/db.json`.
+- Si cambias puertos o endpoints, revisa:
+  - `proxy.conf.js`
+  - `src/environments/api.ts`
+  - `src/environments/environment.ts`
 
-## Building
+## Stack principal
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Angular 21 (standalone components)
+- Angular Material
+- NgRx (Store + Effects)
+- RxJS
+- json-server
+- Vitest
