@@ -31,26 +31,7 @@
       "categoria": "FPV"
     }
   ],
-  "suscripciones": [
-    {
-      "id": "c0a3",
-      "fondoId": "4",
-      "nombreFondo": "FDO-ACCIONES",
-      "categoria": "FIC",
-      "monto": 250000,
-      "metodoNotificacion": "sms",
-      "fecha": "2026-03-11T23:28:36.200Z"
-    },
-    {
-      "id": "5c11",
-      "fondoId": "3",
-      "nombreFondo": "DEUDAPRIVADA",
-      "categoria": "FIC",
-      "monto": 50000,
-      "metodoNotificacion": "sms",
-      "fecha": "2026-03-11T23:28:38.354Z"
-    }
-  ],
+  "suscripciones": [],
   "transacciones": [
     {
       "id": "1f0b",
@@ -1875,12 +1856,204 @@
       "fecha": "2026-03-12T00:03:55.276Z",
       "estado": "EXITOSA",
       "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "cf05",
+      "fondoId": "1",
+      "nombreFondo": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 75000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:26:55.406Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "10ce",
+      "fondoId": "3",
+      "nombreFondo": "DEUDAPRIVADA",
+      "categoria": "FIC",
+      "tipo": "CANCELACION",
+      "monto": 50000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:27:01.615Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "9a0f",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:27:11.945Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "614a",
+      "fondoId": "1",
+      "nombreFondo": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "categoria": "FPV",
+      "tipo": "CANCELACION",
+      "monto": 75000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:27:16.753Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "da73",
+      "fondoId": "4",
+      "nombreFondo": "FDO-ACCIONES",
+      "categoria": "FIC",
+      "tipo": "CANCELACION",
+      "monto": 250000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:27:18.248Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "a6b8",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "CANCELACION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:27:19.642Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "7ad7",
+      "fondoId": "1",
+      "nombreFondo": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 75000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:29:14.385Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "657d",
+      "fondoId": "2",
+      "nombreFondo": "FPV_BTG_PACTUAL_ECOPETROL",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 125000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:29:16.746Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "8fd5",
+      "fondoId": "3",
+      "nombreFondo": "DEUDAPRIVADA",
+      "categoria": "FIC",
+      "tipo": "SUSCRIPCION",
+      "monto": 50000,
+      "metodoNotificacion": "email",
+      "fecha": "2026-03-12T00:29:18.383Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "9b5c",
+      "fondoId": "4",
+      "nombreFondo": "FDO-ACCIONES",
+      "categoria": "FIC",
+      "tipo": "SUSCRIPCION",
+      "monto": 250000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:29:19.971Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "a4b9",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:29:38.053Z",
+      "estado": "EXITOSA",
+      "detalle": "Suscripcion realizada correctamente."
+    },
+    {
+      "id": "8dc5",
+      "fondoId": "1",
+      "nombreFondo": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "categoria": "FPV",
+      "tipo": "CANCELACION",
+      "monto": 75000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:30:28.369Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "bca4",
+      "fondoId": "2",
+      "nombreFondo": "FPV_BTG_PACTUAL_ECOPETROL",
+      "categoria": "FPV",
+      "tipo": "CANCELACION",
+      "monto": 125000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:30:29.918Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "aa5b",
+      "fondoId": "3",
+      "nombreFondo": "DEUDAPRIVADA",
+      "categoria": "FIC",
+      "tipo": "CANCELACION",
+      "monto": 50000,
+      "metodoNotificacion": "email",
+      "fecha": "2026-03-12T00:30:30.991Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "82e8",
+      "fondoId": "4",
+      "nombreFondo": "FDO-ACCIONES",
+      "categoria": "FIC",
+      "tipo": "CANCELACION",
+      "monto": 250000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:30:31.944Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "0b4e",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "CANCELACION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:30:33.059Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
     }
   ],
   "usuario": {
     "id": 1,
     "nombre": "Jhon Kevin Berrio Lopez",
-    "saldo": 200000,
+    "saldo": 500000,
     "metodoNotificacionPreferido": "email"
   },
   "$schema": "./node_modules/json-server/schema.json"
