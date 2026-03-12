@@ -4,6 +4,7 @@ import { IParticipacion } from '@core/interfaces/IParticipacion.interface';
 import { InversionesService } from '@core/services/inversiones.service';
 import { CurrencyService } from '@shared/services/currency.service';
 import { IFondo } from '@shared/models/IFondo.model';
+import { I18nService } from '@shared/services/i18n.service';
 import { SwalToastService } from '@shared/services/swal-toast.service';
 import { Store } from '@ngrx/store';
 import { SuscripcionesActions } from '@store/actions/suscripciones.actions';
@@ -18,6 +19,7 @@ describe('Fondos', () => {
 
   beforeEach(async () => {
     const participaciones$ = new BehaviorSubject<IParticipacion[]>([]);
+    const language$ = new BehaviorSubject<'es' | 'en'>('es');
 
     storeMock = {
       select: vi.fn().mockReturnValue(of(null)),
@@ -52,6 +54,22 @@ describe('Fondos', () => {
             selectedCurrency: 'COP',
             setCurrency: () => undefined,
             convertFromCop: (value: number) => value,
+          },
+        },
+        {
+          provide: I18nService,
+          useValue: {
+            language$: language$.asObservable(),
+            translationsVersion$: of(1),
+            language: 'es',
+            setLanguage: () => undefined,
+            t: (key: string) =>
+              (
+                {
+                  'fondos.error.methodRequired':
+                    'Selecciona el método de notificación (Email o SMS) antes de suscribirte.',
+                } as Record<string, string>
+              )[key] ?? key,
           },
         },
         { provide: Store, useValue: storeMock },

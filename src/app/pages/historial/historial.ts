@@ -34,6 +34,7 @@ export class Historial {
   readonly #i18n = inject(I18nService);
   readonly #currencyService = inject(CurrencyService);
   readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
+  readonly #translationsVersionSignal = toSignal(this.#i18n.translationsVersion$, { initialValue: 0 });
   readonly #currencySignal = toSignal(this.#currencyService.selectedCurrency$, {
     initialValue: this.#currencyService.selectedCurrency,
   });
@@ -71,6 +72,7 @@ export class Historial {
    */
   t(key: string, params?: Record<string, string | number>): string {
     this.#languageSignal();
+    this.#translationsVersionSignal();
     return this.#i18n.t(key, params);
   }
 

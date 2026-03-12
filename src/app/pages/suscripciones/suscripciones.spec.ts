@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InversionesService } from '@core/services/inversiones.service';
 import { CurrencyService } from '@shared/services/currency.service';
+import { I18nService } from '@shared/services/i18n.service';
 import { Store } from '@ngrx/store';
 import { SuscripcionesActions } from '@store/actions/suscripciones.actions';
 import { SwalToastService } from '@shared/services/swal-toast.service';
@@ -16,6 +17,7 @@ describe('Suscripciones', () => {
 
   beforeEach(async () => {
     const participaciones$ = new BehaviorSubject<IParticipacion[]>([]);
+    const language$ = new BehaviorSubject<'es' | 'en'>('es');
 
     storeMock = {
       select: vi.fn().mockReturnValue(of(null)),
@@ -44,6 +46,22 @@ describe('Suscripciones', () => {
             selectedCurrency: 'COP',
             setCurrency: () => undefined,
             convertFromCop: (value: number) => value,
+          },
+        },
+        {
+          provide: I18nService,
+          useValue: {
+            language$: language$.asObservable(),
+            translationsVersion$: of(1),
+            language: 'es',
+            setLanguage: () => undefined,
+            t: (key: string) =>
+              (
+                {
+                  'fondos.category.fpv': 'FPV: Fondo de Pensiones Voluntarias.',
+                  'fondos.category.fic': 'FIC: Fondo de Inversion Colectiva.',
+                } as Record<string, string>
+              )[key] ?? key,
           },
         },
         { provide: Store, useValue: storeMock },
