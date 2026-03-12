@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { Fondos } from './pages/fondos/fondos';
-import { Historial } from './pages/historial/historial';
-import { Suscripciones } from './pages/suscripciones/suscripciones';
 
 /**
  * Rutas principales de la aplicación.
@@ -9,8 +6,17 @@ import { Suscripciones } from './pages/suscripciones/suscripciones';
  */
 export const routes: Routes = [
   { path: '', redirectTo: 'fondos', pathMatch: 'full' },
-  { path: 'fondos', component: Fondos },
-  { path: 'suscripciones', component: Suscripciones },
-  { path: 'historial', component: Historial },
+  {
+    path: 'fondos',
+    loadComponent: () => import('./pages/fondos/fondos').then((m) => m.Fondos),
+  },
+  {
+    path: 'suscripciones',
+    loadComponent: () => import('./pages/suscripciones/suscripciones').then((m) => m.Suscripciones),
+  },
+  {
+    path: 'historial',
+    loadComponent: () => import('./pages/historial/historial').then((m) => m.Historial),
+  },
   { path: '**', redirectTo: 'fondos' },
 ];
