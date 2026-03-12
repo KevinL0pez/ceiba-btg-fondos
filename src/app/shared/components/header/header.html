@@ -5,12 +5,12 @@
       <section class="brand-block">
         <div class="brand-copy">
           <p class="brand-kicker">BTG Fondos</p>
-          <h1 class="brand-title">Manejo inteligente de fondos</h1>
+          <h1 class="brand-title">{{ t('header.brand.title') }}</h1>
           <p class="brand-subtitle">
-            <span matTooltip="Fondo de Pensiones Voluntarias">FPV</span>
+            <span [matTooltip]="t('header.fpv.tooltip')">FPV</span>
             /
-            <span matTooltip="Fondo de Inversion Colectiva">FIC</span>
-            con seguimiento en tiempo real
+            <span [matTooltip]="t('header.fic.tooltip')">FIC</span>
+            {{ t('header.brand.subtitle') }}
           </p>
         </div>
       </section>
@@ -25,28 +25,44 @@
           [attr.aria-label]="themeTooltip">
           <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
         </button>
+        <div class="lang-switch" [attr.aria-label]="t('header.language.aria')">
+          <button
+            mat-button
+            type="button"
+            [class.lang-switch__btn--active]="language === 'es'"
+            (click)="setLanguage('es')">
+            {{ t('header.language.es') }}
+          </button>
+          <button
+            mat-button
+            type="button"
+            [class.lang-switch__btn--active]="language === 'en'"
+            (click)="setLanguage('en')">
+            {{ t('header.language.en') }}
+          </button>
+        </div>
       </div>
 
       <section class="account-card">
         <div class="account-head">
-          <p class="account-label">Cliente</p>
+          <p class="account-label">{{ t('header.client') }}</p>
           <p class="account-name">{{ usuario$ | async }}</p>
         </div>
         <div class="saldo-pill">
-          <small>Saldo disponible</small>
+          <small>{{ t('header.balance') }}</small>
           <strong>{{ saldo$ | async | currency: 'COP $' : 'symbol' : '1.0-0' }}</strong>
         </div>
       </section>
     </div>
 
-    <nav class="header-nav" aria-label="Contexto de la aplicacion">
+    <nav class="header-nav" [attr.aria-label]="t('header.nav.context')">
         @for (item of navItems; track $index) {
             <a
               class="nav-item"
               [routerLink]="item.route"
               routerLinkActive="nav-item--active"
               [routerLinkActiveOptions]="{ exact: true }">
-              {{ item.label }}
+              {{ t(item.labelKey) }}
             </a>
         }
     </nav>

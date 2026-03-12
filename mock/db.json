@@ -1788,6 +1788,90 @@
       "fecha": "2026-03-11T23:29:50.992Z",
       "estado": "EXITOSA",
       "detalle": "Cancelacion realizada correctamente."
+    },
+    {
+      "id": "7fb8",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-11T23:52:14.395Z",
+      "estado": "RECHAZADA",
+      "detalle": "Saldo insuficiente para completar la suscripcion."
+    },
+    {
+      "id": "fb7f",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-11T23:52:16.289Z",
+      "estado": "RECHAZADA",
+      "detalle": "Saldo insuficiente para completar la suscripcion."
+    },
+    {
+      "id": "78a5",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-11T23:53:05.314Z",
+      "estado": "RECHAZADA",
+      "detalle": "Saldo insuficiente para completar la suscripcion."
+    },
+    {
+      "id": "b36b",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-11T23:55:40.344Z",
+      "estado": "RECHAZADA",
+      "detalle": "Saldo insuficiente para completar la suscripcion."
+    },
+    {
+      "id": "9df7",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-11T23:55:42.879Z",
+      "estado": "RECHAZADA",
+      "detalle": "Saldo insuficiente para completar la suscripcion."
+    },
+    {
+      "id": "f25d",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-11T23:56:33.154Z",
+      "estado": "RECHAZADA",
+      "detalle": "Insufficient balance to complete the subscription."
+    },
+    {
+      "id": "2230",
+      "fondoId": "5",
+      "nombreFondo": "FPV_BTG_PACTUAL_DINAMICA",
+      "categoria": "FPV",
+      "tipo": "SUSCRIPCION",
+      "monto": 100000,
+      "metodoNotificacion": "email",
+      "fecha": "2026-03-11T23:56:42.634Z",
+      "estado": "RECHAZADA",
+      "detalle": "Insufficient balance to complete the subscription."
     }
   ],
   "usuario": {

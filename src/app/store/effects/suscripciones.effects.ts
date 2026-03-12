@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { InversionesService } from '@core/services/inversiones.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { I18nService } from '@shared/services/i18n.service';
 import { catchError, exhaustMap, from, map, of } from 'rxjs';
 import { SuscripcionesActions } from '../actions/suscripciones.actions';
 
@@ -11,6 +12,7 @@ import { SuscripcionesActions } from '../actions/suscripciones.actions';
 export class SuscripcionesEffects {
   private readonly actions$ = inject(Actions);
   private readonly inversionesService = inject(InversionesService);
+  private readonly i18n = inject(I18nService);
 
   /** Efecto para ejecutar una suscripción y emitir resultado al store. */
   readonly suscribir$ = createEffect(() =>
@@ -21,14 +23,14 @@ export class SuscripcionesEffects {
           map((resultado) =>
             resultado.ok
               ? SuscripcionesActions.suscribirSuccess({
-                  mensaje: `Suscripcion confirmada. Notificacion por ${metodoNotificacion.toUpperCase()}.`,
+                  mensaje: this.i18n.t('effects.subscribe.success', { method: metodoNotificacion.toUpperCase() }),
                 })
               : SuscripcionesActions.suscribirFailure({ mensaje: resultado.mensaje })
           ),
           catchError(() =>
             of(
               SuscripcionesActions.suscribirFailure({
-                mensaje: 'No se pudo completar la suscripcion. Intenta nuevamente.',
+                mensaje: this.i18n.t('effects.subscribe.error'),
               })
             )
           )
@@ -46,14 +48,14 @@ export class SuscripcionesEffects {
           map((resultado) =>
             resultado.ok
               ? SuscripcionesActions.cancelarSuccess({
-                  mensaje: 'Suscripción cancelada. El saldo fue actualizado.',
+                  mensaje: this.i18n.t('effects.cancel.success'),
                 })
               : SuscripcionesActions.cancelarFailure({ mensaje: resultado.mensaje })
           ),
           catchError(() =>
             of(
               SuscripcionesActions.cancelarFailure({
-                mensaje: 'No se pudo cancelar la suscripción. Intenta nuevamente.',
+                mensaje: this.i18n.t('effects.cancel.error'),
               })
             )
           )

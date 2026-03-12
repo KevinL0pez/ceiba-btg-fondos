@@ -2,8 +2,8 @@
 
   @if (transacciones$ | async; as transacciones) {
     <header class="page-header">
-      <h1>Historial de transacciones ({{ transacciones.length }})</h1>
-      <p>Monitorea tus movimientos y su estado en tiempo real.</p>
+      <h1>{{ t('historial.title') }} ({{ transacciones.length }})</h1>
+      <p>{{ t('historial.subtitle') }}</p>
     </header>
 
     @if (transacciones.length > 0) {
@@ -13,12 +13,12 @@
             <table class="tx-table">
               <thead>
                 <tr>
-                  <th>Fecha</th>
-                  <th>Fondo</th>
-                  <th>Tipo</th>
-                  <th>Estado</th>
-                  <th>Canal</th>
-                  <th class="amount-col">Monto</th>
+                  <th>{{ t('historial.table.date') }}</th>
+                  <th>{{ t('historial.table.fund') }}</th>
+                  <th>{{ t('historial.table.type') }}</th>
+                  <th>{{ t('historial.table.status') }}</th>
+                  <th>{{ t('historial.table.channel') }}</th>
+                  <th class="amount-col">{{ t('historial.table.amount') }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -54,9 +54,9 @@
       </div>
     } @else {
       <mat-card class="empty-card" appearance="outlined">
-        <mat-card-title>No hay transacciones registradas</mat-card-title>
+        <mat-card-title>{{ t('historial.empty.title') }}</mat-card-title>
         <mat-card-content>
-          <p>Cuando suscribas o canceles un fondo, el historial aparecera aqui.</p>
+          <p>{{ t('historial.empty.body') }}</p>
         </mat-card-content>
       </mat-card>
     }

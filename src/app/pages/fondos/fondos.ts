@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -9,6 +9,7 @@ import { FondosService } from '@core/services/fondos.service';
 import { InversionesService } from '@core/services/inversiones.service';
 import { IFondo } from '@shared/models/IFondo.model';
 import { IFondosViewState } from '@shared/models/IFondoViewState.model';
+import { I18nService } from '@shared/services/i18n.service';
 import { SwalToastService } from '@shared/services/swal-toast.service';
 import { SuscripcionesActions } from '@store/actions/suscripciones.actions';
 import { selectSuscripcionFeedback } from '@store/selectors/suscripciones.selectors';
@@ -42,6 +43,8 @@ export class Fondos {
   readonly #store = inject(Store);
   readonly #swalToastService = inject(SwalToastService);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #i18n = inject(I18nService);
+  readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
 
   /**
    * Inicializa la vista combinando catálogo de fondos y suscripciones activas.
@@ -50,7 +53,7 @@ export class Fondos {
   ngOnInit(): void {
     const fondosBase$ = this.#fondosService.getFondos().pipe(
       map((fondos) => ({ fondos, error: '' })),
-      catchError(() => of({ fondos: [], error: 'No fue posible cargar la lista de fondos. Intenta nuevamente.' }))
+      catchError(() => of({ fondos: [], error: this.t('fondos.error.fetch') }))
     );
 
     this.fondosState$ = combineLatest([fondosBase$, this.#inversionesService.participaciones$]).pipe(
@@ -114,7 +117,7 @@ export class Fondos {
     if (!metodo) {
       this.#store.dispatch(
         SuscripcionesActions.suscribirFailure({
-          mensaje: 'Selecciona el método de notificación (Email o SMS) antes de suscribirte.',
+          mensaje: this.t('fondos.error.methodRequired'),
         })
       );
       return;
@@ -140,8 +143,16 @@ export class Fondos {
    */
   descripcionCategoria(categoria: IFondo['categoria']): string {
     return categoria === 'FPV'
-      ? 'FPV: Fondo de Pensiones Voluntarias.'
-      : 'FIC: Fondo de Inversion Colectiva.';
+      ? this.t('fondos.category.fpv')
+      : this.t('fondos.category.fic');
+  }
+
+  /**
+   * Devuelve la traducción de una clave de texto.
+   */
+  t(key: string, params?: Record<string, string | number>): string {
+    this.#languageSignal();
+    return this.#i18n.t(key, params);
   }
 
 }

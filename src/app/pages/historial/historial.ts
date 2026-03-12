@@ -1,9 +1,11 @@
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ITransaccion } from '@core/interfaces/ITransaccion.interface';
 import { InversionesService } from '@core/services/inversiones.service';
+import { I18nService } from '@shared/services/i18n.service';
 import { map, Observable } from 'rxjs';
 
 /**
@@ -28,6 +30,8 @@ export class Historial {
   pageIndex = 0;
 
   readonly #inversionesService = inject(InversionesService);
+  readonly #i18n = inject(I18nService);
+  readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
 
   /**
    * Inicializa el stream de transacciones ordenadas por fecha.
@@ -55,5 +59,13 @@ export class Historial {
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
+  }
+
+  /**
+   * Devuelve la traducción de una clave de texto.
+   */
+  t(key: string, params?: Record<string, string | number>): string {
+    this.#languageSignal();
+    return this.#i18n.t(key, params);
   }
 }

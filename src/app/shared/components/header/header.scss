@@ -142,7 +142,22 @@
   z-index: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0 0.75rem 0.3rem;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(106, 168, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(9, 17, 32, 0.72);
+}
+
+.lang-switch__btn--active {
+  background: rgba(79, 155, 255, 0.24);
 }
 
 .account-head {
@@ -294,6 +309,10 @@
 :host-context(html[data-theme='light']) .theme-toggle {
   background: rgba(255, 255, 255, 0.92);
   color: #2563eb;
+}
+
+:host-context(html[data-theme='light']) .lang-switch {
+  background: rgba(255, 255, 255, 0.92);
 }
 
 @media (max-width: 980px) {

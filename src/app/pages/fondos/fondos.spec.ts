@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FondosService } from '@core/services/fondos.service';
-import { InversionesService, IParticipacion } from '@core/services/inversiones.service';
+import { IParticipacion } from '@core/interfaces/IParticipacion.interface';
+import { InversionesService } from '@core/services/inversiones.service';
 import { IFondo } from '@shared/models/IFondo.model';
 import { SwalToastService } from '@shared/services/swal-toast.service';
 import { Store } from '@ngrx/store';

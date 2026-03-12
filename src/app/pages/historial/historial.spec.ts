@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
-import { InversionesService, ITransaccion } from '@core/services/inversiones.service';
+import { ITransaccion } from '@core/interfaces/ITransaccion.interface';
+import { InversionesService } from '@core/services/inversiones.service';
 import { firstValueFrom, of } from 'rxjs';
 import { Historial } from './historial';
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { IFondo } from '@shared/models/IFondo.model';
+import { I18nService } from '@shared/services/i18n.service';
 import { BehaviorSubject, catchError, firstValueFrom, of } from 'rxjs';
 import { UsuarioService } from './usuario.service';
 import { IParticipacion } from '@core/interfaces/IParticipacion.interface';
@@ -35,6 +36,7 @@ export class InversionesService {
   constructor(
     private readonly usuarioService: UsuarioService,
     private readonly http: HttpClient,
+    private readonly i18n: I18nService,
   ) {
     this.initSyncChannel();
     this.usuarioService.usuario$.subscribe((usuario) => {
@@ -78,11 +80,11 @@ export class InversionesService {
         metodoNotificacion,
         'SUSCRIPCION',
         'RECHAZADA',
-        'Saldo insuficiente para completar la suscripcion.'
+        this.i18n.t('fondos.error.insufficientBalanceDetail')
       );
       await this.recargarEstado();
       this.emitirSync();
-      return { ok: false, mensaje: 'No tienes saldo suficiente para suscribirte a este fondo.' };
+      return { ok: false, mensaje: this.i18n.t('fondos.error.insufficientBalance') };
     }
 
     const payloadParticipacion: Omit<IParticipacion, 'id'> = {

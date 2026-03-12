@@ -4,22 +4,22 @@
     <ng-container>
   
       <header class="page-header">
-        <h1>Fondos disponibles ({{ state.fondos.length }})</h1>
-        <p>Explora las opciones de inversion y elige la que mejor se ajuste a tu perfil.</p>
+        <h1>{{ t('fondos.title') }} ({{ state.fondos.length }})</h1>
+        <p>{{ t('fondos.subtitle') }}</p>
       </header>
   
       @if (state.loading) {
         <mat-card class="empty-card" appearance="outlined">
-          <mat-card-title>Cargando fondos...</mat-card-title>
+          <mat-card-title>{{ t('fondos.loading.title') }}</mat-card-title>
           <mat-card-content>
-            <p>Estamos consultando la informacion de fondos.</p>
+            <p>{{ t('fondos.loading.body') }}</p>
           </mat-card-content>
         </mat-card>
       }
   
       @if (state.error) {
         <mat-card class="empty-card error-card" appearance="outlined">
-          <mat-card-title>Error de conexion</mat-card-title>
+          <mat-card-title>{{ t('fondos.error.title') }}</mat-card-title>
           <mat-card-content>
             <p>{{ state.error }}</p>
           </mat-card-content>
@@ -40,11 +40,11 @@
               </mat-card-header>
     
               <mat-card-content>
-                <p class="label">Monto minimo de apertura</p>
+                <p class="label">{{ t('fondos.minAmount') }}</p>
                 <p class="monto">{{ fondo.montoMinimo | currency: 'COP $' : 'symbol' : '1.0-0' }}</p>
     
                 <div class="notification-selector">
-                  <p class="notification-label">Notificacion de suscripcion</p>
+                  <p class="notification-label">{{ t('fondos.notification') }}</p>
                   <div class="notification-actions">
                     <button
                       mat-button
@@ -69,16 +69,16 @@
                   matButton="tonal"
                   type="button"
                   (click)="suscribir(fondo)">
-                  Suscribirse
+                  {{ t('fondos.subscribe') }}
                 </button>
               </mat-card-actions>
             </mat-card>
           }
         } @else {
           <mat-card class="empty-card" appearance="outlined">
-            <mat-card-title>No hay fondos disponibles</mat-card-title>
+            <mat-card-title>{{ t('fondos.empty.title') }}</mat-card-title>
             <mat-card-content>
-              <p>Puede que ya estes suscrito a todos los fondos o que el servicio no tenga datos.</p>
+              <p>{{ t('fondos.empty.body') }}</p>
             </mat-card-content>
           </mat-card>
         }

@@ -4,8 +4,8 @@
     <ng-container>
 
       <header class="page-header">
-        <h1>Suscripciones activas ({{ participaciones.length }})</h1>
-        <p>Gestiona tus inversiones vigentes y su metodo de notificacion.</p>
+        <h1>{{ t('suscripciones.title') }} ({{ participaciones.length }})</h1>
+        <p>{{ t('suscripciones.subtitle') }}</p>
       </header>
   
       @if (participaciones.length > 0) {
@@ -16,24 +16,24 @@
                 <p class="fund-name" [attr.title]="formatNombre(item.nombreFondo)">{{ formatNombre(item.nombreFondo) }}</p>
                 <p class="category-chip" [matTooltip]="descripcionCategoria(item.categoria)">{{ item.categoria }}</p>
                 <div class="meta-grid">
-                  <p class="field"><span>Monto</span><strong>{{ item.monto | currency: 'COP $' : 'symbol' : '1.0-0' }}</strong></p>
-                  <p class="field"><span>Notificacion</span><strong>{{ item.metodoNotificacion | uppercase }}</strong></p>
-                  <p class="field field--full"><span>Fecha de suscripción</span><strong>{{ item.fecha | date: 'short' }}</strong></p>
+                  <p class="field"><span>{{ t('suscripciones.amount') }}</span><strong>{{ item.monto | currency: 'COP $' : 'symbol' : '1.0-0' }}</strong></p>
+                  <p class="field"><span>{{ t('suscripciones.notification') }}</span><strong>{{ item.metodoNotificacion | uppercase }}</strong></p>
+                  <p class="field field--full"><span>{{ t('suscripciones.date') }}</span><strong>{{ item.fecha | date: 'short' }}</strong></p>
                 </div>
               </mat-card-content>
       
               <mat-card-actions class="actions">
                 <button mat-button type="button" disabled></button>
-                <button matButton="tonal" type="button" (click)="cancelar(item)">Cancelar suscripción</button>
+                <button matButton="tonal" type="button" (click)="cancelar(item)">{{ t('suscripciones.cancel') }}</button>
               </mat-card-actions>
             </mat-card>
           }
         </div>
       } @else {
         <mat-card class="empty-card" appearance="outlined">
-          <mat-card-title>No tienes suscripciones activas</mat-card-title>
+          <mat-card-title>{{ t('suscripciones.empty.title') }}</mat-card-title>
           <mat-card-content>
-            <p>Suscribete a un fondo para comenzar a construir tus inversiones.</p>
+            <p>{{ t('suscripciones.empty.body') }}</p>
           </mat-card-content>
         </mat-card>
       }

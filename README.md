@@ -60,6 +60,29 @@ npm test -- --watch=false
   - `src/environments/api.ts`
   - `src/environments/environment.ts`
 
+## Internacionalización (i18n)
+
+La aplicación incluye soporte de idioma para **Español (ES)** e **Inglés (EN)** mediante un servicio interno de traducciones.
+
+- Servicio principal: `src/app/shared/services/i18n.service.ts`
+- Selector de idioma: disponible en el `header` (botones ES / EN).
+- Persistencia: el idioma seleccionado se guarda en `localStorage` con la clave `btg-language`.
+- Comportamiento: los textos visibles en componentes y mensajes de feedback se traducen con `i18n.t('clave')`.
+
+### Agregar o modificar traducciones
+
+1. Abre `src/app/shared/services/i18n.service.ts`.
+2. Registra la clave en el objeto `TRANSLATIONS` con valores `es` y `en`.
+3. Usa la clave en el componente/servicio con:
+
+```ts
+this.i18n.t('mi.clave')
+```
+
+### Recomendación
+
+Para mantener consistencia, evita textos hardcodeados en componentes/servicios y centraliza todos los mensajes en `i18n.service.ts`.
+
 ## Stack principal
 
 - Angular 21 (standalone components)

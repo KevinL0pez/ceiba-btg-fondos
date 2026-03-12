@@ -1,11 +1,12 @@
 import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
 import { Component, DestroyRef, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Store } from '@ngrx/store';
 import { InversionesService } from '@core/services/inversiones.service';
+import { I18nService } from '@shared/services/i18n.service';
 import { SwalToastService } from '@shared/services/swal-toast.service';
 import { SuscripcionesActions } from '@store/actions/suscripciones.actions';
 import { selectCancelacionFeedback } from '@store/selectors/suscripciones.selectors';
@@ -31,6 +32,8 @@ export class Suscripciones {
   readonly #store = inject(Store);
   readonly #swalToastService = inject(SwalToastService);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #i18n = inject(I18nService);
+  readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
 
   /**
    * Inicializa stream de participaciones y feedback de cancelación.
@@ -76,7 +79,15 @@ export class Suscripciones {
    */
   descripcionCategoria(categoria: IParticipacion['categoria']): string {
     return categoria === 'FPV'
-      ? 'FPV: Fondo de Pensiones Voluntarias.'
-      : 'FIC: Fondo de Inversion Colectiva.';
+      ? this.t('fondos.category.fpv')
+      : this.t('fondos.category.fic');
+  }
+
+  /**
+   * Devuelve la traducción de una clave de texto.
+   */
+  t(key: string, params?: Record<string, string | number>): string {
+    this.#languageSignal();
+    return this.#i18n.t(key, params);
   }
 }
