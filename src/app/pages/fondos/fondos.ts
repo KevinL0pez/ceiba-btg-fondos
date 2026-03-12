@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -25,6 +26,7 @@ import { MetodoNotificacion } from '@core/models/MetodoNotificacion.model';
   selector: 'app-fondos',
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
     MatTooltipModule
@@ -37,6 +39,8 @@ export class Fondos {
   fondosState$: Observable<IFondosViewState> = of({ loading: true, error: '', fondos: [] });
   /** Método de notificación elegido por cada fondo. */
   selectedNotificationByFondo = signal<Record<number, MetodoNotificacion>>({});
+  /** Formularios reactivos por fondo para validar método de notificación. */
+  private readonly formByFondoId = new Map<number, FormGroup<{ metodoNotificacion: FormControl<MetodoNotificacion | null> }>>();
 
   readonly #fondosService = inject(FondosService);
   readonly #inversionesService = inject(InversionesService);
@@ -57,11 +61,18 @@ export class Fondos {
     );
 
     this.fondosState$ = combineLatest([fondosBase$, this.#inversionesService.participaciones$]).pipe(
-      map(([base, participaciones]) => ({
-        loading: false,
-        error: base.error,
-        fondos: base.fondos.filter((fondo) => !participaciones.some((participacion) => participacion.fondoId === fondo.id)),
-      })),
+      map(([base, participaciones]) => {
+        const fondosDisponibles = base.fondos.filter(
+          (fondo) => !participaciones.some((participacion) => participacion.fondoId === fondo.id),
+        );
+        this.syncFormsWithFondos(fondosDisponibles);
+
+        return {
+          loading: false,
+          error: base.error,
+          fondos: fondosDisponibles,
+        };
+      }),
       startWith({ loading: true, error: '', fondos: [] })
     );
 
@@ -89,6 +100,10 @@ export class Fondos {
    * Asigna el método de notificación elegido para un fondo específico.
    */
   seleccionarMetodo(fondoId: number, metodo: MetodoNotificacion): void {
+    const control = this.getMetodoControl(fondoId);
+    control.setValue(metodo);
+    control.markAsTouched();
+
     this.selectedNotificationByFondo.update((actual) => ({
       ...actual,
       [fondoId]: metodo,
@@ -113,8 +128,11 @@ export class Fondos {
    * Dispara la acción de suscripción validando método de notificación.
    */
   suscribir(fondo: IFondo): void {
+    const metodoControl = this.getMetodoControl(fondo.id);
+    metodoControl.markAsTouched();
+
     const metodo = this.metodoSeleccionado(fondo.id);
-    if (!metodo) {
+    if (!metodo || metodoControl.invalid) {
       this.#store.dispatch(
         SuscripcionesActions.suscribirFailure({
           mensaje: this.t('fondos.error.methodRequired'),
@@ -129,6 +147,14 @@ export class Fondos {
         metodoNotificacion: metodo,
       })
     );
+  }
+
+  /**
+   * Indica si se debe mostrar el error de validación del método.
+   */
+  mostrarErrorMetodo(fondoId: number): boolean {
+    const control = this.getMetodoControl(fondoId);
+    return control.touched && control.invalid;
   }
 
   /**
@@ -153,6 +179,36 @@ export class Fondos {
   t(key: string, params?: Record<string, string | number>): string {
     this.#languageSignal();
     return this.#i18n.t(key, params);
+  }
+
+  private getFondoForm(fondoId: number): FormGroup<{ metodoNotificacion: FormControl<MetodoNotificacion | null> }> {
+    const formExistente = this.formByFondoId.get(fondoId);
+    if (formExistente) {
+      return formExistente;
+    }
+
+    const formNuevo = new FormGroup({
+      metodoNotificacion: new FormControl<MetodoNotificacion | null>(null, {
+        validators: [Validators.required],
+      }),
+    });
+
+    this.formByFondoId.set(fondoId, formNuevo);
+    return formNuevo;
+  }
+
+  private getMetodoControl(fondoId: number): FormControl<MetodoNotificacion | null> {
+    return this.getFondoForm(fondoId).controls.metodoNotificacion;
+  }
+
+  private syncFormsWithFondos(fondos: IFondo[]): void {
+    const idsDisponibles = new Set(fondos.map((fondo) => fondo.id));
+
+    for (const id of this.formByFondoId.keys()) {
+      if (!idsDisponibles.has(id)) {
+        this.formByFondoId.delete(id);
+      }
+    }
   }
 
 }

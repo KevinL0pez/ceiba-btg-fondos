@@ -156,6 +156,12 @@
   color: var(--text-muted);
 }
 
+.validation-error {
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  color: #ff9b9b;
+}
+
 .notification-actions {
   margin-top: 0.2rem;
   display: flex;
