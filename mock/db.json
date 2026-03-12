@@ -33,15 +33,6 @@
   ],
   "suscripciones": [
     {
-      "id": "df74",
-      "fondoId": "2",
-      "nombreFondo": "FPV_BTG_PACTUAL_ECOPETROL",
-      "categoria": "FPV",
-      "monto": 125000,
-      "metodoNotificacion": "sms",
-      "fecha": "2026-03-11T23:28:33.440Z"
-    },
-    {
       "id": "c0a3",
       "fondoId": "4",
       "nombreFondo": "FDO-ACCIONES",
@@ -1872,12 +1863,24 @@
       "fecha": "2026-03-11T23:56:42.634Z",
       "estado": "RECHAZADA",
       "detalle": "Insufficient balance to complete the subscription."
+    },
+    {
+      "id": "2fc2",
+      "fondoId": "2",
+      "nombreFondo": "FPV_BTG_PACTUAL_ECOPETROL",
+      "categoria": "FPV",
+      "tipo": "CANCELACION",
+      "monto": 125000,
+      "metodoNotificacion": "sms",
+      "fecha": "2026-03-12T00:03:55.276Z",
+      "estado": "EXITOSA",
+      "detalle": "Cancelacion realizada correctamente."
     }
   ],
   "usuario": {
     "id": 1,
     "nombre": "Jhon Kevin Berrio Lopez",
-    "saldo": 75000,
+    "saldo": 200000,
     "metodoNotificacionPreferido": "email"
   },
   "$schema": "./node_modules/json-server/schema.json"
