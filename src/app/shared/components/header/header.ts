@@ -6,8 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { UsuarioService } from '@core/services/usuario.service';
+import { AppCurrency, CurrencyService } from '@shared/services/currency.service';
 import { AppLanguage, I18nService } from '@shared/services/i18n.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, combineLatest } from 'rxjs';
 
 /**
  * Encabezado global de la aplicación.
@@ -39,6 +40,8 @@ export class Header {
   isDarkTheme = true;
   /** Idioma activo de la interfaz. */
   language: AppLanguage;
+  /** Moneda activa para visualización. */
+  currency: AppCurrency;
   /** Enlaces de navegación del encabezado. */
   readonly navItems = [
     { labelKey: 'header.nav.funds', route: '/fondos' },
@@ -49,15 +52,19 @@ export class Header {
   readonly #usuarioService = inject(UsuarioService);
   readonly #document = inject(DOCUMENT);
   readonly #i18n = inject(I18nService);
+  readonly #currencyService = inject(CurrencyService);
   readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
 
   /**
    * Inicializa streams del usuario y aplica tema persistido.
    */
   constructor() {
-    this.saldo$ = this.#usuarioService.saldo$;
+    this.saldo$ = combineLatest([this.#usuarioService.saldo$, this.#currencyService.selectedCurrency$]).pipe(
+      map(([saldo]) => this.#currencyService.convertFromCop(saldo)),
+    );
     this.usuario$ = this.#usuarioService.usuario$.pipe(map((usuario) => usuario.nombre));
     this.language = this.#i18n.language;
+    this.currency = this.#currencyService.selectedCurrency;
     this.initTheme();
   }
 
@@ -85,11 +92,33 @@ export class Header {
   }
 
   /**
+   * Cambia la moneda activa para visualización de montos.
+   */
+  setCurrency(currency: AppCurrency): void {
+    this.currency = currency;
+    this.#currencyService.setCurrency(currency);
+  }
+
+  /**
    * Devuelve la traducción de una clave de texto.
    */
   t(key: string, params?: Record<string, string | number>): string {
     this.#languageSignal();
     return this.#i18n.t(key, params);
+  }
+
+  /**
+   * Código de moneda actual para usar en pipes de formato.
+   */
+  get currencyCode(): AppCurrency {
+    return this.currency;
+  }
+
+  /**
+   * Etiqueta de visualización para el pipe currency.
+   */
+  get currencyDisplay(): string {
+    return `${this.currency} $`;
   }
 
   /**

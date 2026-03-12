@@ -10,6 +10,7 @@ import { FondosService } from '@core/services/fondos.service';
 import { InversionesService } from '@core/services/inversiones.service';
 import { IFondo } from '@shared/models/IFondo.model';
 import { IFondosViewState } from '@shared/models/IFondoViewState.model';
+import { CurrencyService } from '@shared/services/currency.service';
 import { I18nService } from '@shared/services/i18n.service';
 import { SwalToastService } from '@shared/services/swal-toast.service';
 import { SuscripcionesActions } from '@store/actions/suscripciones.actions';
@@ -48,7 +49,11 @@ export class Fondos {
   readonly #swalToastService = inject(SwalToastService);
   readonly #destroyRef = inject(DestroyRef);
   readonly #i18n = inject(I18nService);
+  readonly #currencyService = inject(CurrencyService);
   readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
+  readonly #currencySignal = toSignal(this.#currencyService.selectedCurrency$, {
+    initialValue: this.#currencyService.selectedCurrency,
+  });
 
   /**
    * Inicializa la vista combinando catálogo de fondos y suscripciones activas.
@@ -179,6 +184,25 @@ export class Fondos {
   t(key: string, params?: Record<string, string | number>): string {
     this.#languageSignal();
     return this.#i18n.t(key, params);
+  }
+
+  /**
+   * Convierte montos base COP a la moneda seleccionada.
+   */
+  convertirMonto(amount: number): number {
+    this.#currencySignal();
+    return this.#currencyService.convertFromCop(amount);
+  }
+
+  /**
+   * Código de moneda actual para formateo visual.
+   */
+  currencyCode(): 'COP' | 'USD' {
+    return this.#currencySignal();
+  }
+
+  currencyDisplay(): string {
+    return `${this.currencyCode()} $`;
   }
 
   private getFondoForm(fondoId: number): FormGroup<{ metodoNotificacion: FormControl<MetodoNotificacion | null> }> {

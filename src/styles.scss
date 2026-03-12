@@ -119,6 +119,21 @@ html[data-theme='light'] body {
   box-shadow: var(--shadow);
 }
 
+.swal-popup {
+  border-radius: 12px;
+  padding: 1.4rem 1.25rem;
+  color: var(--text-main);
+  font-family: 'Roboto', sans-serif;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.swal-popup .swal2-html-container,
+.swal-popup .swal2-title {
+  color: var(--text-main) !important;
+}
+
 .swal-content {
   font-size: 16px;
   line-height: 1.6;
@@ -147,11 +162,12 @@ html[data-theme='light'] body {
 }
 
 .swal-cancel {
-  background-color: rgba(255, 255, 255, 0.18);
+  background-color: color-mix(in srgb, var(--card-bg) 70%, #ffffff 30%);
   color: var(--text-main);
+  border: 1px solid var(--line);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.26);
+    background-color: color-mix(in srgb, var(--card-bg) 50%, #ffffff 50%);
   }
 }
 

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { UsuarioService } from '@core/services/usuario.service';
+import { CurrencyService } from '@shared/services/currency.service';
 import { IUsuario } from '@shared/models/IUsuario.model';
 import { of } from 'rxjs';
 import { Header } from './header';
@@ -30,6 +31,15 @@ describe('Header', () => {
       providers: [
         provideRouter([]),
         { provide: UsuarioService, useValue: usuarioServiceMock },
+        {
+          provide: CurrencyService,
+          useValue: {
+            selectedCurrency$: of('COP'),
+            selectedCurrency: 'COP',
+            setCurrency: () => undefined,
+            convertFromCop: (value: number) => value,
+          },
+        },
       ],
     }).compileComponents();
 

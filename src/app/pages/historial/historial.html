@@ -36,7 +36,7 @@
                       <span class="status" [class.status--error]="tx.estado === 'RECHAZADA'">{{ tx.estado }}</span>
                     </td>
                     <td>{{ tx.metodoNotificacion | uppercase }}</td>
-                    <td class="amount-col">{{ tx.monto | currency: 'COP $' : 'symbol' : '1.0-0' }}</td>
+                    <td class="amount-col">{{ convertirMonto(tx.monto) | currency: currencyCode() : currencyDisplay() : '1.0-2' }}</td>
                   </tr>
                 }
               </tbody>

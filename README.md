@@ -83,6 +83,31 @@ this.i18n.t('mi.clave')
 
 Para mantener consistencia, evita textos hardcodeados en componentes/servicios y centraliza todos los mensajes en `i18n.service.ts`.
 
+## Conversión de moneda (COP/USD)
+
+La aplicación permite visualizar montos en **COP** o **USD** desde el header.
+
+- Servicio principal: `src/app/shared/services/currency.service.ts`
+- Selector de moneda: disponible en el `header` (botones COP / USD).
+- Persistencia: la moneda seleccionada se guarda en `localStorage` con la clave `btg-currency`.
+- Conversión: los montos base del sistema están en COP y se convierten a USD en tiempo real.
+
+### Obtención de tasa de cambio
+
+La tasa COP -> USD se actualiza periódicamente y usa fuentes públicas:
+
+1. `https://open.er-api.com/v6/latest/COP` (principal)
+2. `https://latest.currency-api.pages.dev/v1/currencies/cop.json` (fallback)
+
+Si ambas fuentes fallan, se mantiene la última tasa válida en memoria para no afectar la experiencia del usuario.
+
+### Dónde se aplica la conversión
+
+- Saldo del usuario (header)
+- Montos en Fondos disponibles
+- Montos en Suscripciones activas
+- Montos en Historial de transacciones
+
 ## Stack principal
 
 - Angular 21 (standalone components)

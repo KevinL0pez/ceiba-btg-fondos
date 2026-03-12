@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
 import { ITransaccion } from '@core/interfaces/ITransaccion.interface';
 import { InversionesService } from '@core/services/inversiones.service';
+import { CurrencyService } from '@shared/services/currency.service';
 import { firstValueFrom, of } from 'rxjs';
 import { Historial } from './historial';
 
@@ -44,6 +45,15 @@ describe('Historial', () => {
           provide: InversionesService,
           useValue: {
             transacciones$: of(transacciones),
+          },
+        },
+        {
+          provide: CurrencyService,
+          useValue: {
+            selectedCurrency$: of('COP'),
+            selectedCurrency: 'COP',
+            setCurrency: () => undefined,
+            convertFromCop: (value: number) => value,
           },
         },
       ],

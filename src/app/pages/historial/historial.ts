@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ITransaccion } from '@core/interfaces/ITransaccion.interface';
 import { InversionesService } from '@core/services/inversiones.service';
+import { CurrencyService } from '@shared/services/currency.service';
 import { I18nService } from '@shared/services/i18n.service';
 import { map, Observable } from 'rxjs';
 
@@ -31,7 +32,11 @@ export class Historial {
 
   readonly #inversionesService = inject(InversionesService);
   readonly #i18n = inject(I18nService);
+  readonly #currencyService = inject(CurrencyService);
   readonly #languageSignal = toSignal(this.#i18n.language$, { initialValue: this.#i18n.language });
+  readonly #currencySignal = toSignal(this.#currencyService.selectedCurrency$, {
+    initialValue: this.#currencyService.selectedCurrency,
+  });
 
   /**
    * Inicializa el stream de transacciones ordenadas por fecha.
@@ -67,5 +72,24 @@ export class Historial {
   t(key: string, params?: Record<string, string | number>): string {
     this.#languageSignal();
     return this.#i18n.t(key, params);
+  }
+
+  /**
+   * Convierte montos base COP a la moneda seleccionada.
+   */
+  convertirMonto(amount: number): number {
+    this.#currencySignal();
+    return this.#currencyService.convertFromCop(amount);
+  }
+
+  /**
+   * Código de moneda actual para formateo visual.
+   */
+  currencyCode(): 'COP' | 'USD' {
+    return this.#currencySignal();
+  }
+
+  currencyDisplay(): string {
+    return `${this.currencyCode()} $`;
   }
 }

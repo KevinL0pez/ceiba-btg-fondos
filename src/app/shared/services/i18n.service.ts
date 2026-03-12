@@ -37,6 +37,7 @@ const TRANSLATIONS: Record<string, Record<AppLanguage, string>> = {
   'header.language.es': { es: 'ES', en: 'ES' },
   'header.language.en': { es: 'EN', en: 'EN' },
   'header.language.aria': { es: 'Cambiar idioma', en: 'Change language' },
+  'header.currency.aria': { es: 'Cambiar moneda', en: 'Change currency' },
 
   'fondos.title': { es: 'Fondos disponibles', en: 'Available funds' },
   'fondos.subtitle': {

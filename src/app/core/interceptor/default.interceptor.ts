@@ -26,6 +26,12 @@ export class DefaultInterceptor implements HttpInterceptor {
    * Punto de entrada del interceptor para cada petición HTTP saliente.
    */
   intercept(req: HttpRequest<ISafeAny>, next: HttpHandler): Observable<HttpEvent<ISafeAny>> {
+    if (this.isExternalRequest(req.url)) {
+      // External APIs (por ejemplo, tasa de cambio) se dejan sin cabeceras custom
+      // para evitar preflight/CORS innecesario.
+      return next.handle(req);
+    }
+
     return next.handle(this.performRequest(req)).pipe(
       timeout(APP_XHR_TIMEOUT),
       map((event) => this.handleSuccessfulResponse(event)),
@@ -46,6 +52,14 @@ export class DefaultInterceptor implements HttpInterceptor {
     }
 
     return req.clone({ url, headers });
+  }
+
+  private isExternalRequest(url: string): boolean {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return false;
+    }
+
+    return !url.startsWith(environment.api.baseUrl);
   }
 
   /**

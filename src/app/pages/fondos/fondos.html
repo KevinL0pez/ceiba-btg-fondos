@@ -41,7 +41,7 @@
     
               <mat-card-content>
                 <p class="label">{{ t('fondos.minAmount') }}</p>
-                <p class="monto">{{ fondo.montoMinimo | currency: 'COP $' : 'symbol' : '1.0-0' }}</p>
+                <p class="monto">{{ convertirMonto(fondo.montoMinimo) | currency: currencyCode() : currencyDisplay() : '1.0-2' }}</p>
     
                 <div class="notification-selector">
                   <p class="notification-label">{{ t('fondos.notification') }}</p>

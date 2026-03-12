@@ -41,6 +41,22 @@
             {{ t('header.language.en') }}
           </button>
         </div>
+        <div class="currency-switch" [attr.aria-label]="t('header.currency.aria')">
+          <button
+            mat-button
+            type="button"
+            [class.currency-switch__btn--active]="currency === 'COP'"
+            (click)="setCurrency('COP')">
+            COP
+          </button>
+          <button
+            mat-button
+            type="button"
+            [class.currency-switch__btn--active]="currency === 'USD'"
+            (click)="setCurrency('USD')">
+            USD
+          </button>
+        </div>
       </div>
 
       <section class="account-card">
@@ -50,7 +66,7 @@
         </div>
         <div class="saldo-pill">
           <small>{{ t('header.balance') }}</small>
-          <strong>{{ saldo$ | async | currency: 'COP $' : 'symbol' : '1.0-0' }}</strong>
+          <strong>{{ saldo$ | async | currency: currencyCode : currencyDisplay : '1.0-2' }}</strong>
         </div>
       </section>
     </div>

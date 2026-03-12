@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InversionesService } from '@core/services/inversiones.service';
+import { CurrencyService } from '@shared/services/currency.service';
 import { Store } from '@ngrx/store';
 import { SuscripcionesActions } from '@store/actions/suscripciones.actions';
 import { SwalToastService } from '@shared/services/swal-toast.service';
@@ -34,6 +35,15 @@ describe('Suscripciones', () => {
           provide: SwalToastService,
           useValue: {
             mostrarMsg: () => Promise.resolve(true),
+          },
+        },
+        {
+          provide: CurrencyService,
+          useValue: {
+            selectedCurrency$: of('COP'),
+            selectedCurrency: 'COP',
+            setCurrency: () => undefined,
+            convertFromCop: (value: number) => value,
           },
         },
         { provide: Store, useValue: storeMock },

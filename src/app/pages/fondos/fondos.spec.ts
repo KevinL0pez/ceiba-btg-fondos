@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FondosService } from '@core/services/fondos.service';
 import { IParticipacion } from '@core/interfaces/IParticipacion.interface';
 import { InversionesService } from '@core/services/inversiones.service';
+import { CurrencyService } from '@shared/services/currency.service';
 import { IFondo } from '@shared/models/IFondo.model';
 import { SwalToastService } from '@shared/services/swal-toast.service';
 import { Store } from '@ngrx/store';
@@ -42,6 +43,15 @@ describe('Fondos', () => {
           provide: SwalToastService,
           useValue: {
             mostrarMsg: () => Promise.resolve(true),
+          },
+        },
+        {
+          provide: CurrencyService,
+          useValue: {
+            selectedCurrency$: of('COP'),
+            selectedCurrency: 'COP',
+            setCurrency: () => undefined,
+            convertFromCop: (value: number) => value,
           },
         },
         { provide: Store, useValue: storeMock },

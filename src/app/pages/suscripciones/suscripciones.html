@@ -16,7 +16,7 @@
                 <p class="fund-name" [attr.title]="formatNombre(item.nombreFondo)">{{ formatNombre(item.nombreFondo) }}</p>
                 <p class="category-chip" [matTooltip]="descripcionCategoria(item.categoria)">{{ item.categoria }}</p>
                 <div class="meta-grid">
-                  <p class="field"><span>{{ t('suscripciones.amount') }}</span><strong>{{ item.monto | currency: 'COP $' : 'symbol' : '1.0-0' }}</strong></p>
+                  <p class="field"><span>{{ t('suscripciones.amount') }}</span><strong>{{ convertirMonto(item.monto) | currency: currencyCode() : currencyDisplay() : '1.0-2' }}</strong></p>
                   <p class="field"><span>{{ t('suscripciones.notification') }}</span><strong>{{ item.metodoNotificacion | uppercase }}</strong></p>
                   <p class="field field--full"><span>{{ t('suscripciones.date') }}</span><strong>{{ item.fecha | date: 'short' }}</strong></p>
                 </div>

@@ -160,6 +160,19 @@
   background: rgba(79, 155, 255, 0.24);
 }
 
+.currency-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(106, 168, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(9, 17, 32, 0.72);
+}
+
+.currency-switch__btn--active {
+  background: rgba(79, 155, 255, 0.24);
+}
+
 .account-head {
   min-width: 0;
   flex: 1 1 auto;
@@ -312,6 +325,10 @@
 }
 
 :host-context(html[data-theme='light']) .lang-switch {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+:host-context(html[data-theme='light']) .currency-switch {
   background: rgba(255, 255, 255, 0.92);
 }
 
